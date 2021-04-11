@@ -17,7 +17,7 @@ jobs:
       - name: Upload math result for job 1
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.ref }}
+          name: wheelstorage
           path: math-homework.txt
 
   job_2:
@@ -28,7 +28,7 @@ jobs:
       - name: Download math result for job 1
         uses: actions/download-artifact@v2
         with:
-          name: ${{ github.ref }}
+          name: wheelstorage
       - shell: bash
         run: |
           value=`cat math-homework.txt`
@@ -36,7 +36,7 @@ jobs:
       - name: Upload math result for job 2
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.ref }}
+          name: wheelstorage
           path: math-homework.txt
 
   job_3:
@@ -47,7 +47,7 @@ jobs:
       - name: Download math result for job 2
         uses: actions/download-artifact@v2
         with:
-          name: ${{ github.ref }}
+          name: wheelstorage
       - name: Print the final result
         shell: bash
         run: |
