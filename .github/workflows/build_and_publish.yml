@@ -54,6 +54,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Get plain tag name
+      id: plain_tag
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      shell: bash
+
     - name: Download release assets
       uses: actions/download-artifact@v2
       with:
@@ -65,5 +70,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
+        body: '[Release Notes](https://github.com/adobe-type-tools/afdko/blob/develop/NEWS.md#${{ steps.plain_tag.outputs.VERSION }}-released-202x-xx-xx)'
         prerelease: true
         files: ./dist/*
