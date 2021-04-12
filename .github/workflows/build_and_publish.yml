@@ -58,7 +58,7 @@ jobs:
       id: plain_tag
       run: |
         echo ::set-output name=VERSION::$(echo ${GITHUB_REF##*/} | sed 's/\.//g')
-        echo $VERSION
+        echo ${{ outputs.VERSION }}
       shell: bash
 
     - name: Download release assets
