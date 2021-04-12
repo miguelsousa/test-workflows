@@ -55,10 +55,9 @@ jobs:
 
     steps:
     - name: Get plain tag name
-      id: plain_tag
       run: |
-        echo ::set-output name=VERSION::$(echo ${GITHUB_REF##*/} | sed 's/\.//g')
-        echo ${{ outputs.VERSION }}
+        export PLAIN_TAG=$(echo ${GITHUB_REF##*/} | sed 's/\.//g')
+        echo $PLAIN_TAG
       shell: bash
 
     - name: Download release assets
@@ -72,6 +71,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        body: '[Release Notes](https://github.com/adobe-type-tools/afdko/blob/develop/NEWS.md#${{ steps.plain_tag.outputs.VERSION }}-released-202x-xx-xx)'
+        body: '[Release Notes](https://github.com/adobe-type-tools/afdko/blob/develop/NEWS.md#${PLAIN_TAG}-released-202x-xx-xx)'
         prerelease: true
         files: ./dist/*
