@@ -44,7 +44,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: wheelstorage
-        path: ./dist/*
+        path: ./foobar/*
         if-no-files-found: error
         retention-days: 30
 
