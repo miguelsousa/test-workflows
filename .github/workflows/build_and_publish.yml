@@ -47,3 +47,23 @@ jobs:
         path: ./dist/*
         if-no-files-found: error
         retention-days: 30
+
+  publish_release:
+    name: Publish Release
+    needs: build_wheels
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download release assets
+      uses: actions/download-artifact@v2
+      with:
+        name: wheelstorage
+        path: dist
+
+    - name: Create GitHub release
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        prerelease: true
+        files: ./dist/*
