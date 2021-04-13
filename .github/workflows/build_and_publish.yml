@@ -54,11 +54,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Get plain tag name
-      id: plain_tag
+    - name: Get date & plain tag
+      id: date_tag
       run: |
+        export DATE=$(date +'%Y-%m-%d')
+        echo $DATE
         export PLAIN_TAG=$(echo ${GITHUB_REF##*/} | sed 's/\.//g')
         echo $PLAIN_TAG
+        echo ::set-output name=TODAY::$DATE
         echo ::set-output name=VERSION::$PLAIN_TAG
       shell: bash
 
@@ -73,6 +76,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        body: '[Release Notes](https://github.com/adobe-type-tools/afdko/blob/develop/NEWS.md#${{ steps.plain_tag.outputs.VERSION }}-released-202x-xx-xx)'
+        body: '[Release Notes](https://github.com/adobe-type-tools/afdko/blob/develop/NEWS.md#${{ steps.date_tag.outputs.VERSION }}-released-${{ steps.date_tag.outputs.TODAY }})'
         prerelease: true
         files: ./dist/*
