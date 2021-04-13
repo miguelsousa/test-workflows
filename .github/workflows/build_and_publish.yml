@@ -54,15 +54,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Get date & plain tag
+    - name: Get date & flat tag
       id: date_tag
       run: |
         export DATE=$(date +'%Y-%m-%d')
         echo $DATE
-        export PLAIN_TAG=$(echo ${GITHUB_REF##*/} | sed 's/\.//g')
-        echo $PLAIN_TAG
+        export FLAT_TAG=$(echo ${GITHUB_REF##*/} | sed 's/\.//g')
+        echo $FLAT_TAG
         echo ::set-output name=TODAY::$DATE
-        echo ::set-output name=VERSION::$PLAIN_TAG
+        echo ::set-output name=VERSION::$FLAT_TAG
       shell: bash
 
     - name: Download release assets
