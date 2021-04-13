@@ -57,8 +57,9 @@ jobs:
     - name: Get plain tag name
       id: plain_tag
       run: |
-        echo ::set-output name=VERSION::$(echo ${GITHUB_REF##*/} | sed 's/\.//g')
-        echo ${{ steps.plain_tag.outputs.VERSION }}
+        export PLAIN_TAG=$(echo ${GITHUB_REF##*/} | sed 's/\.//g')
+        echo $PLAIN_TAG
+        echo ::set-output name=VERSION::$PLAIN_TAG
       shell: bash
 
     - name: Download release assets
